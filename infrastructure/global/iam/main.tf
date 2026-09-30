@@ -13,27 +13,3 @@ module "iam_account" {
   password_reuse_prevention      = 3
   allow_users_to_change_password = true
 }
-
-module "iam_group" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-group"
-  version = "~> 6.8"
-
-  name = "admins"
-
-  users = [
-    "user1",
-    "user2"
-  ]
-
-  enable_self_management_permissions = true
-  permissions = {
-    AssumeRole = {
-      actions   = ["sts:AssumeRole"]
-      resources = ["arn:aws:iam::111111111111:role/admin"]
-    }
-  }
-
-  policies = {
-    AdministratorAccess = "arn:aws:iam::aws:policy/AdministratorAccess",
-  }
-}
